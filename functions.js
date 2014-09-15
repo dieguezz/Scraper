@@ -32,19 +32,25 @@ module.exports = {
             
             // Connecto to database
             db.connect(site);
-            
+        
             // Find title match between already saved and new scrape
             var find = db.find('Productos', {Title: title});
             
-            return find.map(function(el){
-                // Get data already stored and update it with new
-                el.Results.push(toPush);
-                // update database.
-                return db.update('Productos', el.id ,el);
-            });
+            // If no match
+            if (find.length < 0) {
+                return db.save('Productos', results);
+            } else {
+                // If match
+                return find.map(function(el){
+                    // Get data already stored and update it with new
+                    el.Results.push(toPush);
+                    // update database.
+                    return db.update('Productos', el.id ,el);
+                });
+            }
         });
         return Promise.all(productsPromises);
-    },
+        },
 
     // Pass site to saveJSON
     bricoGeek: function (prevParam){
@@ -68,7 +74,9 @@ module.exports = {
     cleanData: function (site) {
         var data = module.exports.getData(site);
         if (data) {
-            return console.log(data);
+            return data.map(function(el){
+               return console.log(el); 
+            });
         }
     }
 };

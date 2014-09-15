@@ -30,6 +30,12 @@ app.get('/bricogeek', function(req, res) {
     res.render('show', {data: functions.getData(bricogeek), site: '/bricogeek'});
 });
 
+app.get('/bricogeek/clean', function(req, res) {
+    var functions = require("./functions.js");
+    functions.cleanData(bricogeek)
+    .then( function () {console.log("Ready")});
+});
+
 // Bricogeek /scan
 app.get('/bricogeek/scan', function(req, res) {
     var functions = require("./functions.js");
@@ -56,4 +62,4 @@ app.get('/diotronic/scan', function(req, res) {
     .then( function () { res.redirect('/') });
 });
 
-app.listen(3000);
+app.listen(process.env.PORT);
