@@ -63,5 +63,12 @@ module.exports = {
                     return el;
                 });
             } 
+    },
+    
+    cleanData: function (site) {
+        var data = module.exports.getData(site);
+        if (data) {
+            return console.log(data);
+        }
     }
 };
