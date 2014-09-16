@@ -37,7 +37,6 @@ app.get('/bricogeek/clean', function(req, res) {
 
     .then(function(data){
         data.map(function(e){
-            console.log(e);
             return e;
         });
     })
