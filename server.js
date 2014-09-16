@@ -33,15 +33,15 @@ app.get('/bricogeek', function(req, res) {
 app.get('/bricogeek/clean', function(req, res) {
     var functions = require("./functions.js");
     var _ = require('lodash');
-    functions.changeFreq(bricogeek)
+    functions.changeFreq(diotronic)
 
     .then(function(data){
         data.map(function(e){
             return e;
         });
     })
-    .then(function(changes){
-        var ordered = _.sortBy(changes, 'changes');
+    .then(function(change){
+        var ordered = _.sortBy(change, 'changes');
         return ordered;
     })
     .then(function(ordered){
