@@ -54,10 +54,10 @@ module.exports = {
 
     // Pass site to saveJSON
     bricoGeek: function (prevParam){
-        module.exports.saveJSON(prevParam, bricogeek);
+        this.saveJSON(prevParam, bricogeek);
     },
     dioTronic: function (prevParam){
-        module.exports.saveJSON(prevParam, diotronic);
+        this.saveJSON(prevParam, diotronic);
     },
     
     // Get data from databa
@@ -71,12 +71,29 @@ module.exports = {
             } 
     },
     
-    cleanData: function (site) {
-        var data = module.exports.getData(site);
-        if (data) {
-            return data.map(function(el){
-               return console.log(el); 
+    changeFreq: function (site) {
+        var siteData = this.getData(site);
+
+        var output = [];
+        for (var i = 0; i < siteData.length; i++) {
+            var product = siteData[i];
+            
+            var results = product.Results;
+
+            var changes = 0;
+            for(var j = 1; j < results.length; j++){
+                var item = results[j];
+                var prev = results[j - 1];
+
+                if(item.Price !== prev.Price){
+                    changes++;
+                }
+            }
+            output.push({
+                product: product.Title,
+                changes: changes
             });
         }
+        return output;
     }
 };

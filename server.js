@@ -32,8 +32,12 @@ app.get('/bricogeek', function(req, res) {
 
 app.get('/bricogeek/clean', function(req, res) {
     var functions = require("./functions.js");
-    functions.cleanData(bricogeek)
-    .then( function () {console.log("Ready")});
+    var lodash = require('lodash');
+    functions.changeFreq(diotronic)
+    .then(function(data){
+        console.log(data);
+    });
+
 });
 
 // Bricogeek /scan
