@@ -73,7 +73,7 @@ module.exports = {
     
     changeFreq: function (site) {
         var siteData = this.getData(site);
-
+        var Promise = require("bluebird");
         var output = [];
         for (var i = 0; i < siteData.length; i++) {
             var product = siteData[i];
@@ -94,6 +94,6 @@ module.exports = {
                 changes: changes
             });
         }
-        return output;
+        return Promise.all(output);
     }
 };
